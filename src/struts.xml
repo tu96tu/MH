@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+<constant name="struts.objectFactory" value="spring" />
+<constant name="struts.multipart.maxSize" value="9999999999" />
+<package name="com.tutu.actions" extends="struts-default" namespace="/">		
+	<interceptors>
+		<!-- 定义权限检查拦截器 -->
+		<interceptor name="authority" class="com.tutu.interceptor.MyInterceptor"></interceptor>
+		<!-- 定义一个包含权限检查的拦截器栈 -->
+		<interceptor-stack name="mydefault">
+			<!-- 包含默认拦截器 -->
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<!-- 包含authority拦截器 -->
+			<interceptor-ref name="authority"></interceptor-ref>
+		</interceptor-stack>
+	</interceptors>
+	
+	<default-interceptor-ref name="mydefault" />
+	
+	<global-results>
+		<!-- 当返回login视图名时，转入到login页面 -->
+		<result name="login">/login.jsp</result>
+	</global-results>
+	
+	<action name="user-list" class="userListAction">
+		<result name="success">/backStage/index.jsp</result>
+	</action>
+	<action name="user-add" class="userAddAction">
+		<result name="success" type="redirectAction">user-list</result>
+	</action>
+	<action name="user-delete" class="userDeleteAction">
+		<result name="success" type="redirectAction">user-list</result>
+	</action>
+	<action name="user-modify1" class="userModifyAction">
+		<result name="success">/backStage/user-modify.jsp</result>
+	</action>
+	<action name="user-modify2" class="userModifyAction" method="modify">
+		<result name="success" type="redirectAction">user-list</result>
+	</action>
+	<action name="user-search" class="userSearchAction">
+		<result name="error">/backStage/index.jsp</result>
+		<result name="fail">/backStage/index.jsp</result>
+		<result name="success">/backStage/index.jsp</result>
+	</action>
+	<action name="account" class="userModifyAction">
+		<result name="success">/backStage/account.jsp</result>
+	</action>
+	<action name="pwd-modify" class="userModifyAction" method="pwdReset">
+		<result name="success" type="redirectAction">loginout?path=1</result>
+		<result name="fail" type="chain">account</result>
+	</action>
+	<action name="user-lock" class="userLockAction">
+		<result name="success" type="redirectAction">user-list</result>
+	</action>
+	
+	<action name="exam-list" class="examListAction">
+		<result name="success">/backStage/examInfo.jsp</result>
+	</action>
+	<action name="exam-add" class="examAddAction">
+		<result name="success" type="redirectAction">exam-list</result>
+	</action>
+	<action name="exam-modify1" class="examModifyAction">
+		<result name="success">/backStage/exam-modify.jsp</result>
+	</action>
+	<action name="exam-modify2" class="examModifyAction" method="modify">
+		<result name="success" type="redirectAction">exam-list</result>
+	</action>
+	<action name="exam-delete" class="examDeleteAction">
+		<result name="success" type="redirectAction">exam-list</result>
+	</action>
+	<action name="exam-search" class="examSearchAction">
+		<result name="success">/backStage/examInfo.jsp</result>
+		<result name="error">/backStage/examInfo.jsp</result>
+		<result name="fail">/backStage/examInfo.jsp</result>
+	</action>
+	
+	
+	<action name="question-list" class="questionListAction">
+		<result name="success">/backStage/questionInfo.jsp</result>
+	</action>
+	<action name="question-add" class="questionAddAction">
+		<result name="success" type="redirectAction">question-list</result>
+	</action>
+	<action name="question-delete" class="questionDeleteAction">
+		<result name="success" type="redirectAction">question-list</result>
+	</action>
+	<action name="question-modify1" class="questionModifyAction">
+		<result name="success">/backStage/question-modify.jsp</result>
+	</action>
+	<action name="question-modify2" class="questionModifyAction" method="modify">
+		<result name="success" type="redirectAction">question-list</result>
+	</action>
+	<action name="question-search" class="questionSearchAction">
+		<result name="success">/backStage/questionInfo.jsp</result>
+		<result name="error">/backStage/questionInfo.jsp</result>
+		<result name="fail">/backStage/questionInfo.jsp</result>
+	</action>
+	
+	
+	<action name="book-list" class="bookListAction">
+		<result name="success">/backStage/bookInfo.jsp</result>
+	</action>
+	<action name="book-add" class="bookAddAction">
+		<result name="success" type="redirectAction">book-list</result>
+	</action>
+	<action name="book-modify1" class="bookModifyAction">
+		<result name="success">/backStage/book-modify.jsp</result>
+	</action>
+	<action name="book-modify2" class="bookModifyAction" method="modify">
+		<result name="success" type="redirectAction">book-list</result>
+	</action>
+	<action name="book-delete" class="bookDeleteAction">
+		<result name="success" type="redirectAction">book-list</result>
+	</action>
+	<action name="book-search" class="bookSearchAction">
+		<result name="success">/backStage/bookInfo.jsp</result>
+		<result name="error">/backStage/bookInfo.jsp</result>
+		<result name="fail">/backStage/bookInfo.jsp</result>
+	</action>
+	
+	
+	<action name="article-list" class="articleListAction">
+		<result name="success">/backStage/articleInfo.jsp</result>
+	</action>
+	<action name="article-add" class="articleAddAction">
+		<result name="success" type="redirectAction">article-list</result>
+	</action>
+	<action name="article-delete" class="articleDeleteAction">
+		<result name="success" type="redirectAction">article-list</result>
+	</action>
+	<action name="article-modify1" class="articleModifyAction">
+		<result name="success">/backStage/article-modify.jsp</result>
+	</action>
+	<action name="article-modify2" class="articleModifyAction" method="modify">
+		<result name="success" type="redirectAction">article-list</result>
+	</action>
+	<action name="article-search" class="articleSearchAction">
+		<result name="success">/backStage/articleInfo.jsp</result>
+		<result name="error">/backStage/articleInfo.jsp</result>
+		<result name="fail">/backStage/articleInfo.jsp</result>
+	</action>
+	
+	
+</package>
+
+
+<package name="com.tutu.actions.proscenium" extends="struts-default" namespace="/">
+	<action name="index" class="indexAction">
+		<result name="success">/proscenium/index.jsp</result>
+	</action>
+	<action name="book" class="bookAction">
+		<result name="success">/proscenium/book.jsp</result>
+	</action>
+	<action name="bookSearch" class="bookAction" method="search">
+		<result name="success">/proscenium/book.jsp</result>
+		<result name="error">/proscenium/book.jsp</result>
+		<result name="fail">/proscenium/book.jsp</result>
+	</action>
+	<action name="private" class="privateAction">
+		<result name="fail">/login.jsp</result>
+		<result name="success">/proscenium/private.jsp</result>
+	</action>
+	<action name="userModify" class="modifyAction">
+		<result name="success" type="redirectAction">private</result>
+	</action>
+	<action name="article" class="articleAction">
+		<result name="success">/proscenium/article.jsp</result>
+	</action>
+	<action name="articleSearch" class="articleAction" method="search">
+		<result name="success">/proscenium/article.jsp</result>
+		<result name="error">/proscenium/article.jsp</result>
+		<result name="fail">/proscenium/article.jsp</result>
+	</action>
+	<action name="articleSearchByNum" class="articleAction" method="searchByNum">
+		<result name="success">/proscenium/article.jsp</result>
+	</action>
+	<action name="page" class="articleAction" method="page">
+		<result name="success">/proscenium/page.jsp</result>
+	</action>
+	<action name="collect" class="articleAction" method="collect">
+		<result name="success" type="redirectAction">${path}</result>
+		<result name="fail">/login.jsp</result>
+	</action>
+	<action name="collectDelete" class="privateAction" method="deleteCollection">
+		<result name="success" type="redirectAction">private</result>
+	</action>
+	<action name="test" class="testAction">
+		<result name="success">/proscenium/test.jsp</result>
+	</action>
+	<action name="questionList" class="testAction" method="questionList">
+		<result name="success">/proscenium/MyJsp.jsp</result>
+	</action>
+	<action name="next" class="testAction" method="questionSwitch">
+	</action>
+	<action name="testSubmit" class="testAction" method="testSubmit">
+	</action>
+	<action name="resultSave" class="testAction" method="resultSave">
+		<result name="success" type="redirectAction">test</result>
+	</action>
+</package>
+
+
+<package name="com.tutu.actions.user" extends="struts-default" namespace="/">
+	<action name="register" class="registerAction">
+		<result name="success">/login.jsp</result>
+		<result name="error">/register.jsp</result>
+	</action>
+	<action name="login" class="loginAction">
+		<result name="success" type="redirectAction">index</result>
+		<result name="fail" type="redirectAction">user-list</result>
+		<result name="error">/login.jsp</result>
+	</action>
+	<action name="loginout" class="loginOutAction">
+		<result name="success" >/login.jsp</result>
+	</action>
+</package>
+</struts>    
